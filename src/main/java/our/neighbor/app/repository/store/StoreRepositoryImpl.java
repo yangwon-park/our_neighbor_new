@@ -1,15 +1,20 @@
 package our.neighbor.app.repository.store;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.spatial.GeometryExpressions;
 import lombok.RequiredArgsConstructor;
 import org.geolatte.geom.G2D;
+import org.geolatte.geom.Geometry;
 import org.geolatte.geom.Polygon;
 import org.springframework.beans.factory.annotation.Qualifier;
 import our.neighbor.app.domain.store.dto.StoreSearchResponse;
 
 import java.util.List;
 
+import static org.springframework.util.StringUtils.hasText;
 import static our.neighbor.app.domain.store.QStore.*;
 
 @RequiredArgsConstructor
@@ -34,6 +39,27 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom {
                                 store.ratingTotal
                         ))
                 .from(store)
+                .where(stContains(polygon), stDistance(polygon).loe(dist), keywordContains(keyword))
                 .fetch();
+    }
+
+    private BooleanExpression stContains(Geometry<?> polygon) {
+        return GeometryExpressions
+                .asGeometry(polygon)
+                .contains(store.point);
+    }
+
+    private NumberExpression<Double> stDistance(Geometry<G2D> polygon) {
+        return GeometryExpressions
+                .asGeometry(store.point)
+                .distance(polygon);
+    }
+
+    private BooleanExpression keywordContains(String keyword) {
+        if (!hasText(keyword)) {
+            return null;
+        }
+
+        return store.name.contains(keyword);
     }
 }
