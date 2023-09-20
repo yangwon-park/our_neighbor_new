@@ -1,4 +1,4 @@
-package our.neighbor.app.controller.api;
+package our.neighbor.app.controller.api.store;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
