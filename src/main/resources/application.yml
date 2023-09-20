@@ -1,16 +1,12 @@
 spring:
   jpa:
-#    hibernate:
-#      ddl-auto: create-drop
+    hibernate:
+      ddl-auto: none
     properties:
       hibernate:
-        format_sql: true
-        #        QueryDSL로 사용된 JPQL 보기
-#        use_sql_comments: true
         default_batch_fetch_size: 500 # 컬렉션 조회 페이징 및 최적화
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        hbm2ddl:
-          auto: none
+    #        use_sql_comments: true
     open-in-view: false
 
   datasource:
@@ -24,6 +20,8 @@ spring:
       url: jdbc:postgresql://database-1.cirwaade9h96.ap-northeast-2.rds.amazonaws.com/neighbor
       username: postgres
       password: neighbor1572
-logging.level:
-  org.hibernate.SQL: debug
-  org.hibernate.type.descriptor.sql: trace
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
