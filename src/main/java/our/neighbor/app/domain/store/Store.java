@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.geolatte.geom.G2D;
-import org.geolatte.geom.Geometry;
 import org.geolatte.geom.Point;
+import our.neighbor.app.domain.common.BaseEntity;
 import our.neighbor.app.domain.embedded.Address;
 import our.neighbor.app.domain.embedded.BusinessTime;
 
@@ -17,7 +17,7 @@ import our.neighbor.app.domain.embedded.BusinessTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "store", schema = "neighbor")
-public class Store {
+public class Store extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "store_id")
