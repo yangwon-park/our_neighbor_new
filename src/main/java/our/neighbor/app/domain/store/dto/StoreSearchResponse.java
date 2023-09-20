@@ -19,9 +19,9 @@ public class StoreSearchResponse {
 
     private String name;
 
-    private Double lon;
-
     private Double lat;
+
+    private Double lon;
 
     private String phoneNumber;
 
@@ -43,13 +43,13 @@ public class StoreSearchResponse {
         this.distance = distance;
     }
 
-    public StoreSearchResponse(Long storeId, String name, Double lon, Double lat,
+    public StoreSearchResponse(Long storeId, String name, Double lat, Double lon,
                                String phoneNumber, StoreStatus status,
                                BusinessTime businessTime, Address address, int average) {
         this.storeId = storeId;
         this.name = name;
-        this.lon = lon;
         this.lat = lat;
+        this.lon = lon;
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.businessTime = businessTime;
@@ -57,13 +57,13 @@ public class StoreSearchResponse {
         this.average = average;
     }
 
-    public StoreSearchResponse(Long storeId, String name, Double lon, Double lat, String phoneNumber,
+    public StoreSearchResponse(Long storeId, String name, Double lat, Double lon,  String phoneNumber,
                                StoreStatus status, BusinessTime businessTime, Address address, int average,
                                String uploadImgUrl, Double distance, List<String> offDays) {
         this.storeId = storeId;
         this.name = name;
-        this.lon = lon;
         this.lat = lat;
+        this.lon = lon;
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.businessTime = businessTime;

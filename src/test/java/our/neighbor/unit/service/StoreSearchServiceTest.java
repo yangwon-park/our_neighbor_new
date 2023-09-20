@@ -40,8 +40,8 @@ public class StoreSearchServiceTest {
         keywordRequest = StoreSearchRequest.Keyword
                 .builder()
                 .keyword("하이")
-                .myLat(32.1234)
-                .myLon(123.234)
+                .myLat(126.97825504339085)
+                .myLon(37.528567604245964)
                 .build();
     }
 

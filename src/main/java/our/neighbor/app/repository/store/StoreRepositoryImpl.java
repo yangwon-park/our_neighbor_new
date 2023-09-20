@@ -27,6 +27,8 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom {
 
     @Override
     public List<StoreSearchResponse> getStoresByKeyword(String keyword, Double dist, Polygon<G2D> polygon) {
+        log.info("POLYGON :: {}", polygon);
+
         return queryFactory
                 .select(
                         Projections.constructor(
