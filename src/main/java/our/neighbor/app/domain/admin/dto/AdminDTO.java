@@ -1,5 +1,7 @@
 package our.neighbor.app.domain.admin.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.result.UpdateCountOutput;
 import our.neighbor.app.domain.admin.Admin;
@@ -12,10 +14,12 @@ public class AdminDTO {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Save {
 
+        @NotBlank
         private String name;
 
         private String phoneNumber;
 
+        @NotNull
         private AdminRole role;
 
         @Builder
