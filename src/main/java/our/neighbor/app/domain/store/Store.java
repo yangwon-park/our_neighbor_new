@@ -39,13 +39,14 @@ public class Store {
 
     private String intro;
 
-    @Column(name = "rating_total")
+    @Column(name = "rating_total", columnDefinition = "integer default 0")
     private Integer ratingTotal;
 
     private String homepage;
 
+    @Column(columnDefinition = "varchar(20) default OPEN")
     @Enumerated(EnumType.STRING)
-    private StoreStatus status = StoreStatus.OPEN;
+    private StoreStatus status;
 
     @Enumerated(EnumType.STRING)
     private ParkAvailable park;
@@ -57,7 +58,6 @@ public class Store {
 
     @Embedded
     private BusinessTime businessTime;
-
 
     public void addPoint(Point<G2D> point) {
         this.point = point;

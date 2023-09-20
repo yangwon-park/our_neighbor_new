@@ -8,6 +8,7 @@ import our.neighbor.app.domain.embedded.Address;
 import our.neighbor.app.domain.embedded.BusinessTime;
 import our.neighbor.app.domain.store.ParkAvailable;
 import our.neighbor.app.domain.store.Store;
+import our.neighbor.app.domain.store.StoreStatus;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -104,6 +105,8 @@ public class StoreDTO {
                     .homepage(homepage)
                     .notice(notice)
                     .intro(intro)
+                    .status(StoreStatus.OPEN)
+                    .ratingTotal(0)
                     .park(park)
                     .parkDetail(parkDetail)
                     .address(new Address(roadAddr, numberAddr, zipcode, detail))

@@ -22,6 +22,7 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
 
+    @Transactional(transactionManager = "appTransactionManager")
     public Long save(StoreDTO.Save request) {
         Store store = request.toEntity();
 
