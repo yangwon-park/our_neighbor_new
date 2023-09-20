@@ -1,15 +1,17 @@
 package our.neighbor.app.repository.store;
 
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.spatial.GeometryExpressions;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Geometry;
 import org.geolatte.geom.Polygon;
-import org.springframework.beans.factory.annotation.Qualifier;
 import our.neighbor.app.domain.store.dto.StoreSearchResponse;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 import static org.springframework.util.StringUtils.hasText;
 import static our.neighbor.app.domain.store.QStore.*;
 
+@Slf4j
 @RequiredArgsConstructor
 public class StoreRepositoryImpl implements StoreRepositoryCustom {
 

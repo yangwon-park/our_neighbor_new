@@ -1,23 +1,23 @@
-package our.neighbor.app.service;
+package our.neighbor.app.service.store;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import our.neighbor.app.domain.store.dto.StoreDTO;
 import our.neighbor.app.domain.store.dto.StoreSearchRequest;
 import our.neighbor.app.domain.store.dto.StoreSearchResponse;
 import our.neighbor.app.repository.store.StoreRepository;
 
 import java.util.List;
 
-import static our.neighbor.app.core.util.distance.DistanceUtil.*;
+import static our.neighbor.app.core.util.distance.DistanceUtil.getPolygon;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 @Transactional(transactionManager = "appTransactionManager", readOnly = true)
-public class StoreService {
-
+public class StoreSearchService {
     private final StoreRepository storeRepository;
 
     public List<StoreSearchResponse> getStoresByKeyword(StoreSearchRequest.Keyword request) {
@@ -29,3 +29,4 @@ public class StoreService {
 
 
 }
+
