@@ -2,6 +2,7 @@ package our.neighbor.app.domain.member;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
@@ -33,4 +34,15 @@ public class Member extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "member")
     private MemberAdditionalInfo memberAdditionalInfo;
+
+    @Builder
+    public Member(Long id, String snsId, String jointRoute, String nickname,
+                  LocalDateTime lastLoginTime, MemberAdditionalInfo memberAdditionalInfo) {
+        this.id = id;
+        this.snsId = snsId;
+        this.jointRoute = jointRoute;
+        this.nickname = nickname;
+        this.lastLoginTime = lastLoginTime;
+        this.memberAdditionalInfo = memberAdditionalInfo;
+    }
 }

@@ -12,16 +12,23 @@ spring:
   datasource:
     app:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://database-1.cirwaade9h96.ap-northeast-2.rds.amazonaws.com/neighbor
-      username: postgres
-      password: neighbor1572
+      url: ENC(0nm38ff3I+x+S+ldXfnqpdZl8Wkaub6tBShSUmYGFv1ii49j7t4bHdJ90rzzXy9LaHHxhQq432pXOHkvaO+py4noCIRudytqHiV70HP/UMlAQog0uEDkRCIu/Bdrsz+Y)
+      username: ENC(w+dERMTX+KzzwtHlVxsQKAberPBrzay0)
+      password: ENC(LpnoSF8dh1K7eHoI+wS+tDD+KCh/h13F)
     log:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://database-1.cirwaade9h96.ap-northeast-2.rds.amazonaws.com/neighbor
-      username: postgres
-      password: neighbor1572
+      url: ENC(0nm38ff3I+x+S+ldXfnqpdZl8Wkaub6tBShSUmYGFv1ii49j7t4bHdJ90rzzXy9LaHHxhQq432pXOHkvaO+py4noCIRudytqHiV70HP/UMlAQog0uEDkRCIu/Bdrsz+Y)
+      username: ENC(w+dERMTX+KzzwtHlVxsQKAberPBrzay0)
+      password: ENC(LpnoSF8dh1K7eHoI+wS+tDD+KCh/h13F)
 
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    property:
+      prefix: ENC(
+      suffix: )
