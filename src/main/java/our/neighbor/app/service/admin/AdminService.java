@@ -16,8 +16,12 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
 
+    public AdminDTO.Detail getAdminDetail(Long adminId) {
+        return adminRepository.getAdminDetailByAdminId(adminId);
+    }
+
     @Transactional(transactionManager = "appTransactionManager")
-    public Long joinNewAdmin(AdminDTO.Save request) {
+    public Long joinAdmin(AdminDTO.Save request) {
         return adminRepository.save(request.toEntity()).getId();
     }
 

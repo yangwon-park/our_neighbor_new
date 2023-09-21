@@ -15,9 +15,14 @@ public class AdminApiController {
 
     private final AdminService adminService;
 
+    @GetMapping("/{adminId}")
+    public AdminDTO.Detail getAdminDetail(@PathVariable Long adminId) {
+        return adminService.getAdminDetail(adminId);
+    }
+
     @PostMapping
     public Long joinAdmin(@Validated @RequestBody AdminDTO.Save request) {
-        return adminService.joinNewAdmin(request);
+        return adminService.joinAdmin(request);
     }
 
     @PutMapping("/{adminId}")

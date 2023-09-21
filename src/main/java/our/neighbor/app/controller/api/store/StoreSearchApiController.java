@@ -21,7 +21,6 @@ public class StoreSearchApiController {
 
     @GetMapping("/keyword")
     public ResultResponse<?> getStoresByKeyword(@RequestBody StoreSearchRequest.Keyword request) {
-        log.info("request :: {}", request);
         List<StoreSearchResponse> result = storeSearchService.getStoresByKeyword(request);
 
         return new ResultResponse<>(result.size(), result);

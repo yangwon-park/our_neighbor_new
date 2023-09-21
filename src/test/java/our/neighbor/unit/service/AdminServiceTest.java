@@ -35,6 +35,8 @@ public class AdminServiceTest {
 
     Admin admin;
 
+    AdminDTO.Detail detailResponse;
+
     AdminDTO.Save saveRequest;
 
     AdminDTO.Update updateRequest;
@@ -46,6 +48,14 @@ public class AdminServiceTest {
                 .id(1L)
                 .name("기존 관리자")
                 .phoneNumber("010-1234-1234")
+                .role(AdminRole.NORMAL)
+                .build();
+
+        detailResponse = AdminDTO.Detail
+                .builder()
+                .id(admin.getId())
+                .name(admin.getName())
+                .phoneNumber(admin.getPhoneNumber())
                 .role(AdminRole.NORMAL)
                 .build();
 
@@ -65,13 +75,25 @@ public class AdminServiceTest {
     }
 
     @Test
+    @DisplayName("관리자 조회")
+    void should_GetAdminDetailByAdminId() {
+        given(adminRepository.getAdminDetailByAdminId(admin.getId())).willReturn(detailResponse);
+
+        AdminDTO.Detail findAdminDetail = adminService.getAdminDetail(admin.getId());
+
+        then(adminRepository).should(times(1)).getAdminDetailByAdminId(admin.getId());
+
+        assertThat(findAdminDetail.getName()).isEqualTo(detailResponse.getName());
+    }
+
+    @Test
     @DisplayName("새 관리자 가입")
     void should_JoinNewAdmin_ThenReturnAdminId() {
         Admin savedAdmin = saveRequest.toEntity();
 
         given(adminRepository.save(any(Admin.class))).willAnswer(invocation -> invocation.getArgument(0));
 
-        Long id = adminService.joinNewAdmin(saveRequest);
+        Long id = adminService.joinAdmin(saveRequest);
 
         ArgumentCaptor<Admin> argumentCaptor = ArgumentCaptor.forClass(Admin.class);
 

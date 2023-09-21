@@ -6,6 +6,7 @@ public class CommonUtils {
 
     private CommonUtils() {
         // 유틸리티 클래스: 인스턴스화를 방지하기 위해 private 생성자를 가짐
+        throw new AssertionError("Utility Class should not be instantiated!");
     }
 
     /**
