@@ -68,8 +68,4 @@ public class StoreServiceTest {
 
         assertThat(id).isEqualTo(savedStore.getId());
     }
-
-
-
-
 }

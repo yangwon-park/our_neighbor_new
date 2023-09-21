@@ -1,14 +1,18 @@
 package our.neighbor.app.domain.admin;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
+import our.neighbor.app.domain.admin.dto.AdminDTO;
 import our.neighbor.app.domain.common.BaseTimeEntity;
+
+import java.util.Optional;
+
+import static our.neighbor.app.core.util.CommonUtils.getIfNotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicUpdate
 @Entity
 @Table(name = "admin", schema = "neighbor")
 public class Admin extends BaseTimeEntity {
@@ -31,5 +35,11 @@ public class Admin extends BaseTimeEntity {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.role = role;
+    }
+
+    public void updateAdminInfo(AdminDTO.Update request) {
+        this.name = getIfNotNull(this.name, request.getName());
+        this.phoneNumber = getIfNotNull(this.phoneNumber, request.getPhoneNumber());
+        this.role = getIfNotNull(this.role, request.getRole());
     }
 }

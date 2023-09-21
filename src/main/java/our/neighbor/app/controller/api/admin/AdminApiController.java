@@ -3,10 +3,7 @@ package our.neighbor.app.controller.api.admin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import our.neighbor.app.domain.admin.dto.AdminDTO;
 import our.neighbor.app.service.admin.AdminService;
 
@@ -21,5 +18,10 @@ public class AdminApiController {
     @PostMapping
     public Long joinAdmin(@Validated @RequestBody AdminDTO.Save request) {
         return adminService.joinNewAdmin(request);
+    }
+
+    @PutMapping("/{adminId}")
+    public Long updateAdminInfo(@PathVariable Long adminId, @Validated @RequestBody AdminDTO.Update request) {
+        return adminService.updateAdminInfo(adminId, request);
     }
 }

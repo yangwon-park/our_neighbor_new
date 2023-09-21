@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import our.neighbor.app.domain.admin.Admin;
 import our.neighbor.app.domain.admin.dto.AdminDTO;
 import our.neighbor.app.repository.admin.AdminRepository;
 
@@ -18,5 +19,15 @@ public class AdminService {
     @Transactional(transactionManager = "appTransactionManager")
     public Long joinNewAdmin(AdminDTO.Save request) {
         return adminRepository.save(request.toEntity()).getId();
+    }
+
+    @Transactional(transactionManager = "appTransactionManager")
+    public Long updateAdminInfo(Long adminId, AdminDTO.Update request) {
+        Admin admin = adminRepository.findById(adminId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 관리자입니다. ID :: {}" + adminId));
+
+        admin.updateAdminInfo(request);
+
+        return adminId;
     }
 }

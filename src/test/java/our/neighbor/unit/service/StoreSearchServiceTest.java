@@ -42,6 +42,7 @@ public class StoreSearchServiceTest {
                 .keyword("하이")
                 .myLat(126.97825504339085)
                 .myLon(37.528567604245964)
+                .dist(3.0)
                 .build();
     }
 

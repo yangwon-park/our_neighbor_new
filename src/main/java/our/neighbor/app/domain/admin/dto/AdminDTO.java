@@ -39,4 +39,24 @@ public class AdminDTO {
         }
     }
 
+    @Getter
+    @ToString
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class Update {
+
+        @NotBlank
+        private String name;
+
+        private String phoneNumber;
+
+        @NotNull
+        private AdminRole role;
+
+        @Builder
+        public Update(String name, String phoneNumber, AdminRole role) {
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+            this.role = role;
+        }
+    }
 }
