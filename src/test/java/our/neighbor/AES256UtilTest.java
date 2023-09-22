@@ -1,5 +1,6 @@
 package our.neighbor;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,8 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+
+import static org.assertj.core.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -28,5 +31,7 @@ public class AES256UtilTest {
 
         System.out.println("aesEncrypt = " + aesEncrypt);
         System.out.println("aesDecrypt = " + aesDecrypt);
+
+        assertThat(aesDecrypt).isEqualTo(testText);
     }
 }
