@@ -26,6 +26,9 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
 
+aes:
+  secret-key: ENC(fTa2qwMWVDf6dh0nqBhfE6tGobUjdmvFk0DQux6Ap1xnZW2Ym0R7NCgc2oqU26y0)
+
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor

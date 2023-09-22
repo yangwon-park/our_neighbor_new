@@ -1,4 +1,4 @@
-package our.neighbor.unit.service;
+package our.neighbor;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.jupiter.api.DisplayName;
