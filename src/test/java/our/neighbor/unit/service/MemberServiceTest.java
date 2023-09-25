@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import our.neighbor.app.domain.member.dto.MemberDTO;
 import our.neighbor.app.domain.member.Member;
 import our.neighbor.app.domain.member.MemberAdditionalInfo;
-import our.neighbor.app.exception.DuplicateNicknameException;
+import our.neighbor.app.exception.DuplicateException;
 import our.neighbor.app.repository.member.MemberRepository;
 import our.neighbor.app.repository.memberadditionalinfo.MemberAdditionalInfoRepository;
 import our.neighbor.app.service.member.MemberService;
@@ -85,7 +85,7 @@ public class MemberServiceTest {
 
         assertThatThrownBy(
                 () -> memberService.checkExistingMember(member.getSnsId(), member.getJoinRoute())
-        ).isInstanceOf(DuplicateNicknameException.class);
+        ).isInstanceOf(DuplicateException.class);
 
         then(memberRepository).should().checkExistingMember(member.getSnsId(), member.getJoinRoute());
     }
@@ -125,7 +125,7 @@ public class MemberServiceTest {
 
         assertThatThrownBy(
                 () -> memberService.joinMember(joinRequest)
-        ).isInstanceOf(DuplicateNicknameException.class);
+        ).isInstanceOf(DuplicateException.class);
 
         then(memberRepository).should().checkExistingNickname(joinRequest.getNickname());
         then(memberRepository).should(never()).save(any(Member.class));

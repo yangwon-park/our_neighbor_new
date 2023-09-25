@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import our.neighbor.app.controller.common.CustomErrorResponse;
-import our.neighbor.app.exception.DuplicateNicknameException;
+import our.neighbor.app.exception.DuplicateException;
 
 import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
@@ -12,8 +12,8 @@ import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 @RestControllerAdvice
 public class GlobalControllerAdvice {
 
-    @ExceptionHandler(DuplicateNicknameException.class)
-    public CustomErrorResponse duplicateNicknameExceptionHandler(DuplicateNicknameException e) {
+    @ExceptionHandler(DuplicateException.class)
+    public CustomErrorResponse duplicateNicknameExceptionHandler(DuplicateException e) {
         return new CustomErrorResponse(SC_INTERNAL_SERVER_ERROR, e.getMessage());
     }
 

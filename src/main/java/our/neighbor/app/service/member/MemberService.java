@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import our.neighbor.app.exception.DuplicateNicknameException;
+import our.neighbor.app.exception.DuplicateException;
 import our.neighbor.app.domain.member.dto.MemberDTO;
 import our.neighbor.app.domain.member.Member;
 import our.neighbor.app.repository.member.MemberRepository;
@@ -25,7 +25,7 @@ public class MemberService {
 
         if (isExistingMember) {
             log.error("::: Duplicate Member Exception OCCUR :::");
-            throw new DuplicateNicknameException(snsId);
+            throw new DuplicateException("SNS ID", snsId);
         }
 
         return "newUser";
@@ -52,7 +52,7 @@ public class MemberService {
 
         if (isAlreadyExistingNickname) {
             log.error("::: Duplicate Nickname Exception OCCUR :::");
-            throw new DuplicateNicknameException(request.getNickname());
+            throw new DuplicateException("닉네임", request.getNickname());
         }
     }
 
