@@ -17,6 +17,10 @@ public class GlobalControllerAdvice {
         return new CustomErrorResponse(SC_INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
+    @ExceptionHandler(Exception.class)
+    public CustomErrorResponse globalExceptionHandler(Exception e) {
+        return new CustomErrorResponse(SC_INTERNAL_SERVER_ERROR, e.getMessage());
+    }
 
 
 
