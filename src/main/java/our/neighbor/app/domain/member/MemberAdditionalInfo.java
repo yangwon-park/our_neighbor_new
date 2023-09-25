@@ -46,9 +46,4 @@ public class MemberAdditionalInfo {
         this.age = age;
         this.role = role;
     }
-
-    public void linkMember(Member member) {
-        this.member = member;
-        member.setMemberAdditionalInfo(this);
-    }
 }

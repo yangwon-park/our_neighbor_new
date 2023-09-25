@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 
 @ActiveProfiles("test")
@@ -45,6 +46,7 @@ public class MemberServiceTest {
                 .pushToken("paosudakl2anmlekzdamldsz")
                 .joinRoute("NAVER")
                 .name("회원가입할래")
+                .nickname("닉네임")
                 .email("email@email.com")
                 .phoneNumber("010-1234-1242")
                 .gender("MALE")
@@ -54,8 +56,9 @@ public class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("회원 가입")
-    void should_JoinMember() {
+    @DisplayName("회원 가입 성공")
+    void should_JoinMemberToBeSuccessful() {
+        given(memberRepository.checkAlreadyExistingNickname(joinRequest.getNickname())).willReturn(false);
         given(memberAdditionalInfoRepository.save(any(MemberAdditionalInfo.class)))
                 .willAnswer(invocation -> invocation.getArgument(0));
         given(memberRepository.save(any(Member.class)))
@@ -68,6 +71,7 @@ public class MemberServiceTest {
 
         ArgumentCaptor<Member> memberArgumentCaptor = ArgumentCaptor.forClass(Member.class);
 
+        then(memberRepository).should(times(1)).checkAlreadyExistingNickname(joinRequest.getNickname());
         then(memberAdditionalInfoRepository).should(times(1))
                 .save(memberAdditionalInfoArgumentCaptor.capture());
         then(memberRepository).should(times(1)).save(memberArgumentCaptor.capture());
@@ -77,5 +81,19 @@ public class MemberServiceTest {
 
         assertThat(capturedMemberAdditionalInfo.getName()).isEqualTo(joinRequest.getName());
         assertThat(capturedMember.getJointRoute()).isEqualTo(joinRequest.getJoinRoute());
+    }
+
+    @Test
+    @DisplayName("회원 가입 - 닉네임 중복으로 인한 실패")
+    void should_GetExceptionWhenJoinMember_ByAlreadyExistingNickname() {
+        given(memberRepository.checkAlreadyExistingNickname(joinRequest.getNickname())).willReturn(true);
+
+        assertThatThrownBy(
+                () -> memberService.joinMember(joinRequest)
+        ).isInstanceOf(IllegalArgumentException.class);
+
+        then(memberRepository).should().checkAlreadyExistingNickname(joinRequest.getNickname());
+        then(memberRepository).should(never()).save(any(Member.class));
+        then(memberAdditionalInfoRepository).should(never()).save(any(MemberAdditionalInfo.class));
     }
 }

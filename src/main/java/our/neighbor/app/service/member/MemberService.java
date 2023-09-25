@@ -22,10 +22,16 @@ public class MemberService {
 
     @Transactional(transactionManager = "appTransactionManager")
     public void joinMember(MemberDTO.Join request) {
+        Boolean isAlreadyExistingNickname = memberRepository.checkAlreadyExistingNickname(request.getNickname());
+
+        if (isAlreadyExistingNickname) {
+            throw new IllegalArgumentException("이미 존재하는 닉네임입니다.");
+        }
+
         Member member = memberRepository.save(request.toMemberEntity());
         MemberAdditionalInfo memberAdditionalInfo =
                 memberAdditionalInfoRepository.save(request.toMemberAdditionalInfoEntity(member));
-
-        memberAdditionalInfo.linkMember(member);
+//
+//        memberAdditionalInfo.linkMember(member);
     }
 }
