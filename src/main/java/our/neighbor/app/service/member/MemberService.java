@@ -21,7 +21,7 @@ public class MemberService {
     private final MemberAdditionalInfoRepository memberAdditionalInfoRepository;
 
     @Transactional(transactionManager = "appTransactionManager")
-    public void joinMember(MemberDTO.Join request) {
+    public MemberDTO.JoinResponse joinMember(MemberDTO.Join request) {
         Boolean isAlreadyExistingNickname = memberRepository.checkAlreadyExistingNickname(request.getNickname());
 
         if (isAlreadyExistingNickname) {
@@ -29,9 +29,14 @@ public class MemberService {
         }
 
         Member member = memberRepository.save(request.toMemberEntity());
-        MemberAdditionalInfo memberAdditionalInfo =
-                memberAdditionalInfoRepository.save(request.toMemberAdditionalInfoEntity(member));
-//
-//        memberAdditionalInfo.linkMember(member);
+
+        memberAdditionalInfoRepository.save(request.toMemberAdditionalInfoEntity(member));
+
+        return MemberDTO.JoinResponse
+                .builder()
+                .nickname(member.getNickname())
+                .joinRoute(member.getJointRoute())
+                .snsId(member.getSnsId())
+                .build();
     }
 }

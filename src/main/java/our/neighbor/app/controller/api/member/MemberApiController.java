@@ -24,9 +24,10 @@ public class MemberApiController {
 
     @PostMapping("/join")
     public ResponseEntity<?> joinMember(@RequestBody MemberDTO.Join request) {
-        memberService.joinMember(request);
+        MemberDTO.JoinResponse response = memberService.joinMember(request);
 
         return ok(new JSONObject()
+                .appendField("response", response)
                 .appendField("status", SC_OK));
     }
 }
