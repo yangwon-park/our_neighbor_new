@@ -31,6 +31,7 @@ public class MemberAdditionalInfo {
 
     private Integer age;
 
+    @Enumerated(EnumType.STRING)
     private MemberRole role;
 
     @Builder
