@@ -1,6 +1,5 @@
 package our.neighbor.unit.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
-import our.neighbor.app.controller.api.member.MemberDTO;
+import our.neighbor.app.domain.member.dto.MemberDTO;
 import our.neighbor.app.domain.member.Member;
 import our.neighbor.app.domain.member.MemberAdditionalInfo;
 import our.neighbor.app.repository.member.MemberRepository;
@@ -62,7 +61,7 @@ public class MemberServiceTest {
         given(memberRepository.save(any(Member.class)))
                 .willAnswer(invocation -> invocation.getArgument(0));
 
-        memberService.join(joinRequest);
+        memberService.joinMember(joinRequest);
 
         ArgumentCaptor<MemberAdditionalInfo> memberAdditionalInfoArgumentCaptor =
                 ArgumentCaptor.forClass(MemberAdditionalInfo.class);

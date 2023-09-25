@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import our.neighbor.app.domain.member.dto.MemberDTO;
 import our.neighbor.app.service.member.MemberService;
 
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
@@ -22,8 +23,8 @@ public class MemberApiController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody MemberDTO.Join request) {
-        memberService.join(request);
+    public ResponseEntity<?> joinMember(@RequestBody MemberDTO.Join request) {
+        memberService.joinMember(request);
 
         return ok(new JSONObject()
                 .appendField("status", SC_OK));

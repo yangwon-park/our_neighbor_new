@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import our.neighbor.app.controller.api.member.MemberDTO;
+import our.neighbor.app.domain.member.dto.MemberDTO;
 import our.neighbor.app.domain.member.Member;
 import our.neighbor.app.domain.member.MemberAdditionalInfo;
 import our.neighbor.app.repository.member.MemberRepository;
@@ -21,10 +21,10 @@ public class MemberService {
     private final MemberAdditionalInfoRepository memberAdditionalInfoRepository;
 
     @Transactional(transactionManager = "appTransactionManager")
-    public void join(MemberDTO.Join request) {
+    public void joinMember(MemberDTO.Join request) {
         Member member = memberRepository.save(request.toMemberEntity());
         MemberAdditionalInfo memberAdditionalInfo =
-                memberAdditionalInfoRepository.save(request.toMemberAdditionalInfoEntity());
+                memberAdditionalInfoRepository.save(request.toMemberAdditionalInfoEntity(member));
 
         memberAdditionalInfo.linkMember(member);
     }

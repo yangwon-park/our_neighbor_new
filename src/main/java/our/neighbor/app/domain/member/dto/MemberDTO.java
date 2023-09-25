@@ -1,4 +1,4 @@
-package our.neighbor.app.controller.api.member;
+package our.neighbor.app.domain.member.dto;
 
 import lombok.*;
 import our.neighbor.app.domain.member.Member;
@@ -36,11 +36,12 @@ public class MemberDTO {
 
         @Builder
         public Join(String snsId, String pushToken, String joinRoute,
-                    String name, String email, String phoneNumber,
+                    String nickname, String name, String email, String phoneNumber,
                     String gender, int age, MemberRole role, String duplicateInfo) {
             this.snsId = snsId;
             this.pushToken = pushToken;
             this.joinRoute = joinRoute;
+            this.nickname = nickname;
             this.name = name;
             this.email = email;
             this.phoneNumber = phoneNumber;
@@ -50,7 +51,7 @@ public class MemberDTO {
             this.duplicateInfo = duplicateInfo;
         }
 
-        public MemberAdditionalInfo toMemberAdditionalInfoEntity() {
+        public MemberAdditionalInfo toMemberAdditionalInfoEntity(Member member) {
             return MemberAdditionalInfo
                     .builder()
                     .name(name)
@@ -59,6 +60,7 @@ public class MemberDTO {
                     .gender(gender)
                     .age(age)
                     .role(role)
+                    .member(member)
                     .build();
         }
 

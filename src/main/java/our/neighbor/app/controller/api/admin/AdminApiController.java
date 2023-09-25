@@ -20,7 +20,7 @@ public class AdminApiController {
         return adminService.getAdminDetail(adminId);
     }
 
-    @PostMapping
+    @PostMapping("/join")
     public Long joinAdmin(@Validated @RequestBody AdminDTO.Save request) {
         return adminService.joinAdmin(request);
     }
