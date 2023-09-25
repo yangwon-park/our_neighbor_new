@@ -22,11 +22,7 @@ public class MemberService {
 
     @Transactional(transactionManager = "appTransactionManager")
     public MemberDTO.JoinResponse joinMember(MemberDTO.Join request) {
-        Boolean isAlreadyExistingNickname = memberRepository.checkAlreadyExistingNickname(request.getNickname());
-
-        if (isAlreadyExistingNickname) {
-            throw new DuplicateNicknameException(request.getNickname());
-        }
+        checkAlreadyExistingNickname(request);
 
         Member member = memberRepository.save(request.toMemberEntity());
 
@@ -38,5 +34,14 @@ public class MemberService {
                 .joinRoute(member.getJointRoute())
                 .snsId(member.getSnsId())
                 .build();
+    }
+
+    private void checkAlreadyExistingNickname(MemberDTO.Join request) {
+        Boolean isAlreadyExistingNickname = memberRepository.checkAlreadyExistingNickname(request.getNickname());
+
+        if (isAlreadyExistingNickname) {
+            log.error("::: Duplicate Nickname Exception OCCUR :::");
+            throw new DuplicateNicknameException(request.getNickname());
+        }
     }
 }

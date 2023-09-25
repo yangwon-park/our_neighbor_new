@@ -14,8 +14,6 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(DuplicateNicknameException.class)
     public CustomErrorResponse duplicateNicknameExceptionHandler(DuplicateNicknameException e) {
-        log.error("[exception]");
-
         return new CustomErrorResponse(SC_INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
