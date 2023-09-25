@@ -33,12 +33,10 @@ public class MemberAdditionalInfo {
 
     private MemberRole role;
 
-    @Column(name = "duplicate_info")
-    private String duplicateInfo;
-
     @Builder
-    public MemberAdditionalInfo(Long id, Member member, String name, String email, String phoneNumber,
-                                String gender, Integer age, MemberRole role, String duplicateInfo) {
+    public MemberAdditionalInfo(Long id, Member member, String name,
+                                String email, String phoneNumber,
+                                String gender, Integer age, MemberRole role) {
         this.id = id;
         this.member = member;
         this.name = name;
@@ -47,6 +45,10 @@ public class MemberAdditionalInfo {
         this.gender = gender;
         this.age = age;
         this.role = role;
-        this.duplicateInfo = duplicateInfo;
+    }
+
+    public void linkMember(Member member) {
+        this.member = member;
+        member.setMemberAdditionalInfo(this);
     }
 }

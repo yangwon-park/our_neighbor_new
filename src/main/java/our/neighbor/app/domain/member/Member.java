@@ -32,17 +32,26 @@ public class Member extends BaseTimeEntity {
     @Column(name = "last_login_time")
     private LocalDateTime lastLoginTime;
 
+    @Column(name = "duplicate_info")
+    private String duplicateInfo;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "member")
     private MemberAdditionalInfo memberAdditionalInfo;
 
     @Builder
-    public Member(Long id, String snsId, String jointRoute, String nickname,
-                  LocalDateTime lastLoginTime, MemberAdditionalInfo memberAdditionalInfo) {
+    public Member(Long id, String snsId, String jointRoute,
+                  String nickname, LocalDateTime lastLoginTime,
+                  String duplicateInfo, MemberAdditionalInfo memberAdditionalInfo) {
         this.id = id;
         this.snsId = snsId;
         this.jointRoute = jointRoute;
         this.nickname = nickname;
         this.lastLoginTime = lastLoginTime;
+        this.duplicateInfo = duplicateInfo;
+        this.memberAdditionalInfo = memberAdditionalInfo;
+    }
+
+    public void setMemberAdditionalInfo(MemberAdditionalInfo memberAdditionalInfo) {
         this.memberAdditionalInfo = memberAdditionalInfo;
     }
 }
