@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import our.neighbor.app.exception.DuplicateNicknameException;
 import our.neighbor.app.domain.member.dto.MemberDTO;
 import our.neighbor.app.domain.member.Member;
-import our.neighbor.app.domain.member.MemberAdditionalInfo;
 import our.neighbor.app.repository.member.MemberRepository;
 import our.neighbor.app.repository.memberadditionalinfo.MemberAdditionalInfoRepository;
 
@@ -25,7 +25,7 @@ public class MemberService {
         Boolean isAlreadyExistingNickname = memberRepository.checkAlreadyExistingNickname(request.getNickname());
 
         if (isAlreadyExistingNickname) {
-            throw new IllegalArgumentException("이미 존재하는 닉네임입니다.");
+            throw new DuplicateNicknameException(request.getNickname());
         }
 
         Member member = memberRepository.save(request.toMemberEntity());
