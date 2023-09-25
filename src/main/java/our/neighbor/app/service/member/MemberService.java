@@ -20,9 +20,20 @@ public class MemberService {
 
     private final MemberAdditionalInfoRepository memberAdditionalInfoRepository;
 
+    public String checkExistingMember(String snsId, String joinRoute) {
+        Boolean isExistingMember = memberRepository.checkExistingMember(snsId, joinRoute);
+
+        if (isExistingMember) {
+            log.error("::: Duplicate Member Exception OCCUR :::");
+            throw new DuplicateNicknameException(snsId);
+        }
+
+        return "newUser";
+    }
+
     @Transactional(transactionManager = "appTransactionManager")
     public MemberDTO.JoinResponse joinMember(MemberDTO.Join request) {
-        checkAlreadyExistingNickname(request);
+        checkExistingNickname(request);
 
         Member member = memberRepository.save(request.toMemberEntity());
 
@@ -31,17 +42,18 @@ public class MemberService {
         return MemberDTO.JoinResponse
                 .builder()
                 .nickname(member.getNickname())
-                .joinRoute(member.getJointRoute())
+                .joinRoute(member.getJoinRoute())
                 .snsId(member.getSnsId())
                 .build();
     }
 
-    private void checkAlreadyExistingNickname(MemberDTO.Join request) {
-        Boolean isAlreadyExistingNickname = memberRepository.checkAlreadyExistingNickname(request.getNickname());
+    private void checkExistingNickname(MemberDTO.Join request) {
+        Boolean isAlreadyExistingNickname = memberRepository.checkExistingNickname(request.getNickname());
 
         if (isAlreadyExistingNickname) {
             log.error("::: Duplicate Nickname Exception OCCUR :::");
             throw new DuplicateNicknameException(request.getNickname());
         }
     }
+
 }

@@ -25,7 +25,7 @@ public class Member extends BaseTimeEntity {
     private String snsId;
 
     @Column(name = "join_route")
-    private String jointRoute;
+    private String joinRoute;
 
     private String nickname;
 
@@ -39,12 +39,12 @@ public class Member extends BaseTimeEntity {
     private MemberAdditionalInfo memberAdditionalInfo;
 
     @Builder
-    public Member(Long id, String snsId, String jointRoute,
+    public Member(Long id, String snsId, String joinRoute,
                   String nickname, LocalDateTime lastLoginTime,
                   String duplicateInfo, MemberAdditionalInfo memberAdditionalInfo) {
         this.id = id;
         this.snsId = snsId;
-        this.jointRoute = jointRoute;
+        this.joinRoute = joinRoute;
         this.nickname = nickname;
         this.lastLoginTime = lastLoginTime;
         this.duplicateInfo = duplicateInfo;

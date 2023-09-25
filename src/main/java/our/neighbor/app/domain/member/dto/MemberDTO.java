@@ -68,7 +68,7 @@ public class MemberDTO {
             return Member
                     .builder()
                     .snsId(snsId)
-                    .jointRoute(joinRoute)
+                    .joinRoute(joinRoute)
                     .nickname(nickname)
                     .duplicateInfo(duplicateInfo)
                     .build();

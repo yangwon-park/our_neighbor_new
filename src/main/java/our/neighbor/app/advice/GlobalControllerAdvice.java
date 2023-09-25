@@ -10,7 +10,7 @@ import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 @Slf4j
 @RestControllerAdvice
-public class ExceptionControllerAdvice {
+public class GlobalControllerAdvice {
 
     @ExceptionHandler(DuplicateNicknameException.class)
     public CustomErrorResponse duplicateNicknameExceptionHandler(DuplicateNicknameException e) {

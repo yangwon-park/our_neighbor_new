@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import our.neighbor.app.domain.member.dto.MemberDTO;
 import our.neighbor.app.service.member.MemberService;
 
@@ -21,6 +18,16 @@ import static org.springframework.http.ResponseEntity.ok;
 public class MemberApiController {
 
     private final MemberService memberService;
+
+    @GetMapping("/existing-check")
+    public ResponseEntity<?> checkExistingMember(@RequestParam(name = "snsId") String snsId,
+                                                 @RequestParam(name = "joinRoute") String joinRoute) {
+        String response = memberService.checkExistingMember(snsId, joinRoute);
+
+        return ok(new JSONObject()
+                .appendField("response", response)
+                .appendField("status", SC_OK));
+    }
 
     @PostMapping("/join")
     public ResponseEntity<?> joinMember(@RequestBody MemberDTO.Join request) {
