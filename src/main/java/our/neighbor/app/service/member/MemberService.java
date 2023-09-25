@@ -20,12 +20,12 @@ public class MemberService {
 
     private final MemberAdditionalInfoRepository memberAdditionalInfoRepository;
 
-    public String checkExistingMember(String snsId, String joinRoute) {
-        Boolean isExistingMember = memberRepository.checkExistingMember(snsId, joinRoute);
+    public String checkExistingMember(MemberDTO.Sns request) {
+        Boolean isExistingMember = memberRepository.checkExistingMember(request.getSnsId(), request.getJoinRoute());
 
         if (isExistingMember) {
             log.error("::: Duplicate Member Exception OCCUR :::");
-            throw new DuplicateException("SNS ID", snsId);
+            throw new DuplicateException("SNS ID", request.getSnsId());
         }
 
         return "newUser";
@@ -55,5 +55,4 @@ public class MemberService {
             throw new DuplicateException("닉네임", request.getNickname());
         }
     }
-
 }

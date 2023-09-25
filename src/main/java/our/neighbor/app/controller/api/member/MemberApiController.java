@@ -20,21 +20,16 @@ public class MemberApiController {
     private final MemberService memberService;
 
     @GetMapping("/existing-check")
-    public ResponseEntity<?> checkExistingMember(@RequestParam(name = "snsId") String snsId,
-                                                 @RequestParam(name = "joinRoute") String joinRoute) {
-        String response = memberService.checkExistingMember(snsId, joinRoute);
-
+    public ResponseEntity<?> checkExistingMember(@RequestBody MemberDTO.Sns request) {
         return ok(new JSONObject()
-                .appendField("response", response)
+                .appendField("response", memberService.checkExistingMember(request))
                 .appendField("status", SC_OK));
     }
 
     @PostMapping("/join")
     public ResponseEntity<?> joinMember(@RequestBody MemberDTO.Join request) {
-        MemberDTO.JoinResponse response = memberService.joinMember(request);
-
         return ok(new JSONObject()
-                .appendField("response", response)
+                .appendField("response", memberService.joinMember(request))
                 .appendField("status", SC_OK));
     }
 }

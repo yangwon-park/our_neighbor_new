@@ -39,13 +39,21 @@ public class MemberServiceTest {
 
     Member member;
 
+    MemberDTO.Sns newSnsRequest;
+
     MemberDTO.Join joinRequest;
 
     @BeforeEach
     void setUp() {
         member = Member
                 .builder()
-                .snsId("snsId")
+                .snsId("sns_id")
+                .joinRoute("NAVER")
+                .build();
+
+        newSnsRequest = MemberDTO.Sns
+                .builder()
+                .snsId("new_sns_id")
                 .joinRoute("NAVER")
                 .build();
 
@@ -67,13 +75,12 @@ public class MemberServiceTest {
     @Test
     @DisplayName("기존 회원 체크 - 새로운 회원")
     void should_CheckExistingMember() {
-        String newSnsId = "new_sns_id";
+        given(memberRepository.checkExistingMember(newSnsRequest.getSnsId(), newSnsRequest.getJoinRoute())).willReturn(false);
 
-        given(memberRepository.checkExistingMember(newSnsId, member.getJoinRoute())).willReturn(false);
+        String result = memberService.checkExistingMember(newSnsRequest);
 
-        String result = memberService.checkExistingMember(newSnsId, member.getJoinRoute());
-
-        then(memberRepository).should(times(1)).checkExistingMember(newSnsId, member.getJoinRoute());
+        then(memberRepository).should(times(1))
+                .checkExistingMember(newSnsRequest.getSnsId(), newSnsRequest.getJoinRoute());
 
         assertThat(result).isEqualTo("newUser");
     }
@@ -81,13 +88,13 @@ public class MemberServiceTest {
     @Test
     @DisplayName("기존 회원 체크 - 중복 회원")
     void should_ThrowDuplicateException_CheckExistingMember() {
-        given(memberRepository.checkExistingMember(member.getSnsId(), member.getJoinRoute())).willReturn(true);
+        given(memberRepository.checkExistingMember(newSnsRequest.getSnsId(), newSnsRequest.getJoinRoute())).willReturn(true);
 
         assertThatThrownBy(
-                () -> memberService.checkExistingMember(member.getSnsId(), member.getJoinRoute())
+                () -> memberService.checkExistingMember(newSnsRequest)
         ).isInstanceOf(DuplicateException.class);
 
-        then(memberRepository).should().checkExistingMember(member.getSnsId(), member.getJoinRoute());
+        then(memberRepository).should().checkExistingMember(newSnsRequest.getSnsId(), newSnsRequest.getJoinRoute());
     }
 
     @Test

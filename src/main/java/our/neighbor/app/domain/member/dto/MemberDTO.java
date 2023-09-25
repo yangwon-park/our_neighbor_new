@@ -10,6 +10,23 @@ public class MemberDTO {
     @Getter
     @ToString
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class Sns {
+
+        private String snsId;
+
+        private String joinRoute;
+
+        @Builder
+        public Sns(String snsId, String joinRoute) {
+            this.snsId = snsId;
+            this.joinRoute = joinRoute;
+        }
+    }
+
+
+    @Getter
+    @ToString
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Join {
 
         private String snsId;
@@ -80,18 +97,18 @@ public class MemberDTO {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class JoinResponse {
 
+
         private String nickname;
 
         private String snsId;
 
         private String joinRoute;
-
         @Builder
         public JoinResponse(String nickname, String snsId, String joinRoute) {
             this.nickname = nickname;
             this.snsId = snsId;
             this.joinRoute = joinRoute;
         }
-    }
 
+    }
 }
